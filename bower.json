@@ -1,9 +1,8 @@
 {
-  "name": "fs-angular", 
+  "name": "fs-angular-array",
   "description": "",
   "main": [
-    "dist/.js",
-    "dist/.css"
+    "dist/array.js"
   ],
   "authors": [
     "Firestitch Inc."

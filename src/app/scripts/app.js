@@ -5,7 +5,7 @@ angular
     'config',
     'ui.router',
     'ngMaterial',
-    'fs-angular-????????????'
+    'fs-angular-array'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
 
