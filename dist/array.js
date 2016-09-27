@@ -1,4 +1,5 @@
 
+
 (function () {
     'use strict';
 
@@ -11,7 +12,8 @@
     .factory('fsArray', function ($filter) {
         var service = {
             nameValue: nameValue,
-            remove: remove
+            remove: remove,
+            filter: filter
         };
 
         return service;
@@ -51,13 +53,27 @@
             if(items.length) {
                 var spliced = null;
                 angular.forEach(items,function(item) {
-                    var index = arry.indexOf(item);
-                    spliced = arry.splice(index,1);
+                    var idx = arry.indexOf(item);
+                    spliced = arry.splice(idx,1);
                 });
                 return spliced;
             }
         }
+
+        function filter(arry, func) {
+            var list = [];
+            if(arry.length) {
+                angular.forEach(arry,function(item,idx) {
+                    if(func(item)) {
+                        list.push(item);
+                    }
+                });
+            }
+            return list;
+        }
     });
 })();
+
+
 
 
