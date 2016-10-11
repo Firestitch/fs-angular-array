@@ -1,5 +1,4 @@
 
-
 (function () {
     'use strict';
 
@@ -13,7 +12,8 @@
         var service = {
             nameValue: nameValue,
             remove: remove,
-            filter: filter
+            filter: filter,
+            index: index
         };
 
         return service;
@@ -60,6 +60,15 @@
             }
         }
 
+        /**
+         * @ngdoc method
+         * @name fs.filter
+         * @methodOf fs.fsArray
+         * @description Filters the array based on the result of a function
+         * @param {array} arry The array to be altered
+         * @param {function} func The function that is used to evaluate if the element is valid by returning a boolean.
+         * @returns {array} array The filtered array
+         */
         function filter(arry, func) {
             var list = [];
             if(arry.length) {
@@ -71,9 +80,25 @@
             }
             return list;
         }
+
+        /**
+         * @ngdoc method
+         * @name fs.index
+         * @methodOf fs.fsArray
+         * @description Indexes the array based on a property of the object
+         * @param {array} arry The array to be altered
+         * @param {string} property The propery that is used to get the value used in the index
+         * @returns {array} array The indexed array
+         */
+        function index(arry, property) {
+            var list = {};
+            if(arry.length) {
+                angular.forEach(arry,function(item,idx) {
+                    list[item[property]] = item;
+                });
+            }
+            return list;
+        }
     });
 })();
-
-
-
 
