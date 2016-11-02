@@ -8,7 +8,13 @@
 
     $scope.list = fsArray.nameValue($scope.users,'id','name');
 
+    $scope.indexof = fsArray.indexOf($scope.users,{ name: 'Tom' });
+
+    $scope.filtered = fsArray.filter($scope.users,{ name: 'Will' });
+
     fsArray.remove($scope.users,{ name: 'Tom' });
+
+
 
 });
 

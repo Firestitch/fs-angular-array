@@ -12,7 +12,8 @@
             nameValue: nameValue,
             remove: remove,
             filter: filter,
-            index: index
+            index: index,
+            indexOf: indexOf
         };
 
         return service;
@@ -38,45 +39,77 @@
 
         /**
          * @ngdoc method
-         * @name fs.remove
          * @methodOf fs.fsArray
+         * @name fs.remove
          * @description Removes an array element based on a query
          * @param {array} arry The array to be altered
-         * @param {object} query An object that is used to query the array ie: { id: 200 } will find any elements that match id=200 and will remove them from the array
+         * @param {function|object} query An object that is used to query the array ie: { id: 200 } will find any elements that match id=200 and will remove them from the array
          * @returns {object} object The element that was removed
          */
         function remove(arry, query) {
 
-            var items = $filter('filter')(arry,query,true);
+            var idx = indexOf(arry,query);
 
-            if(items.length) {
-                var spliced = null;
-                angular.forEach(items,function(item) {
-                    var idx = arry.indexOf(item);
-                    spliced = arry.splice(idx,1);
-                });
-                return spliced;
+            if(idx!==null) {
+                return arry.splice(idx,1);
             }
+
+            return null;
         }
 
         /**
          * @ngdoc method
-         * @name fs.filter
          * @methodOf fs.fsArray
+         * @name fs.indexOf
+         * @description Returns the index of the element in the array
+         * @param {array} arry The array to be searched
+         * @param {function|object} query An object that is used to query the array ie: { id: 200 } will find any elements that match id=200 and will remove them from the array
+         * @returns {object} object The index of the object
+         */
+        function indexOf(arry, query) {
+
+            if(!angular.isFunction(query)) {
+                query = angular.bind(this,compare,query);
+            }
+
+            for(var i=0, len=arry.length; i<len; i++) {
+                if(query(arry[i])) {
+                    return i;
+                }
+            }
+
+            return null;
+        }
+
+        function compare(query,item) {
+            var value = true, key;
+            for (key in query) {
+                value &= item[key]==query[key];
+            }
+            return value;
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf fs.fsArray
+         * @name fs.filter
          * @description Filters the array based on the result of a function
          * @param {array} arry The array to be altered
-         * @param {function} func The function that is used to evaluate if the element is valid by returning a boolean.
+         * @param {function|object} func The function that is used to evaluate if the element is valid by returning a boolean.
          * @returns {array} array The filtered array
          */
-        function filter(arry, func) {
-            var list = [];
-            if(arry.length) {
-                angular.forEach(arry,function(item,idx) {
-                    if(func(item)) {
-                        list.push(item);
-                    }
-                });
+        function filter(arry, query) {
+
+            if(!angular.isFunction(query)) {
+                query = angular.bind(this,compare,query);
             }
+
+            var list = [];
+            angular.forEach(arry,function(item,idx) {
+                if(query(item)) {
+                    list.push(item);
+                }
+            });
             return list;
         }
 
@@ -91,11 +124,9 @@
          */
         function index(arry, property) {
             var list = {};
-            if(arry.length) {
-                angular.forEach(arry,function(item,idx) {
-                    list[item[property]] = item;
-                });
-            }
+            angular.forEach(arry,function(item,idx) {
+                list[item[property]] = item;
+            });
             return list;
         }
     });
