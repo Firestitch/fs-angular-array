@@ -13,7 +13,9 @@
             remove: remove,
             filter: filter,
             index: index,
-            indexOf: indexOf
+            indexOf: indexOf,
+            sort: sort,
+            rsort: rsort
         };
 
         return service;
@@ -115,8 +117,8 @@
 
         /**
          * @ngdoc method
-         * @name fs.index
          * @methodOf fs.fsArray
+         * @name fs.index
          * @description Indexes the array based on a property of the object
          * @param {array} arry The array to be altered
          * @param {string} property The propery that is used to get the value used in the index
@@ -128,6 +130,54 @@
                 list[item[property]] = item;
             });
             return list;
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf fs.fsArray
+         * @name fs.sort
+         * @description Sorts the array based on a query
+         * @param {array} arry The array to be sorted
+         * @param {function|string} query The function or property to base sorting on
+         * @param {boolean} reverse Indicates if sorting should be reversed
+         * @returns {array} array The sorted array
+         */
+        function sort(arry, query, reverse) {
+            if(!angular.isFunction(query)) {
+                query = angular.bind(this,function(query,a,b) {
+
+                    if(reverse) {
+                        if (a[query] < b[query]) {
+                            return 1;
+                        } else if (a[query] > b[query]) {
+                            return -1;
+                        }
+                    } else {
+                        if (a[query] > b[query]) {
+                            return 1;
+                        } else if (a[query] < b[query]) {
+                            return -1;
+                        }
+                    }
+                    return 0;
+                },query);
+            }
+
+            arry.sort(query);
+            return arry;
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf fs.fsArray
+         * @name fs.rsort
+         * @description Reverse sorts the array based on a query
+         * @param {array} arry The array to be reverse sorted
+         * @param {function|string} query The function or property to base sorting on
+         * @returns {array} array The sorted array
+         */
+        function rsort(arry, query) {
+            return sort(arry, query, true);
         }
     });
 })();
