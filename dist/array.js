@@ -16,7 +16,8 @@
             index: index,
             indexOf: indexOf,
             sort: sort,
-            rsort: rsort
+            rsort: rsort,
+            list: list
         };
 
         return service;
@@ -179,6 +180,29 @@
          */
         function rsort(arry, query) {
             return sort(arry, query, true);
+        }
+
+
+        /**
+         * @ngdoc method
+         * @methodOf fs.fsArray
+         * @name fs.list
+         * @description Indexes the array based on a property of the object
+         * @param {array} arry The array to be altered
+         * @param {string} property The propery that is used for the value in the list
+         * @param {string} index The propery that is used for the index of the item in the list
+         * @returns {array} array
+         */
+        function list(arry, property, index) {
+            var list = index ? {} : [];
+            angular.forEach(arry,function(item,idx) {
+                if(index) {
+                    list[item[index]] = item[property];
+                } else {
+                    list.push(item[property]);
+                }
+            });
+            return list;
         }
     });
 })();

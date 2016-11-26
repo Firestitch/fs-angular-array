@@ -4,19 +4,23 @@
 angular.module('app')
   .controller('DemoCtrl', function ($scope, fsArray) {
 
-  	$scope.users = [{ id: 1, name: 'Will' },{ id: 2, name: 'Bob' },{ id: 3, name: 'Tom' }];
+  	$scope.array = [{ id: 1, name: 'Will' },{ id: 2, name: 'Bob' },{ id: 3, name: 'Tom' }];
 
-    $scope.list = fsArray.nameValue($scope.users,'id','name');
+    $scope.nameValue = fsArray.nameValue($scope.array,'id','name');
 
-    $scope.indexof = fsArray.indexOf($scope.users,{ name: 'Tom' });
+    $scope.indexOf = fsArray.indexOf($scope.array,{ name: 'Tom' });
 
-    $scope.filtered = fsArray.filter($scope.users,{ name: 'Will' });
+    $scope.filter = fsArray.filter($scope.array,{ name: 'Will' });
 
-    $scope.sorted = angular.copy(fsArray.sort($scope.users,'name'));
+    $scope.sort = angular.copy(fsArray.sort($scope.array,'name'));
 
-	$scope.rsorted = angular.copy(fsArray.rsort($scope.users,'name'));
+	$scope.rsort = angular.copy(fsArray.rsort($scope.array,'name'));
 
-    fsArray.remove($scope.users,{ name: 'Tom' });
+    fsArray.remove(angular.copy($scope.array),{ name: 'Tom' });
+
+    $scope.list = fsArray.list($scope.array,'name');
+
+    $scope.listIndex = fsArray.list($scope.array,'name','id');
 
 
 
