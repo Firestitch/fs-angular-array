@@ -223,7 +223,6 @@
 		function applyDepth(objects, parent_property, id_property, depth_property) {
 			var id_property = id_property || 'id';
 			var depth_property = depth_property || 'depth';
-			var objects = angular.copy(objects);
 
 			var keyed = [];
 			angular.forEach(objects, function(object) {
