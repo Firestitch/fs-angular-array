@@ -22,7 +22,9 @@
 
     $scope.listIndex = fsArray.list($scope.array,'name','id');
 
-
+    var arr = angular.copy($scope.array);
+    arr[1].parent_id = 1;
+	$scope.applyDepth = fsArray.applyDepth(arr,'parent_id', 'id');
 
 });
 
