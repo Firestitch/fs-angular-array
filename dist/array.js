@@ -103,20 +103,25 @@
 		 * @param {function|object} func The function that is used to evaluate if the element is valid by returning a boolean.
 		 * @returns {array} array The filtered array
 		 */
-		function filter(arry, query) {
+        function filter(arry, query) {
 
-			if(!angular.isFunction(query)) {
-				query = angular.bind(this,compare,query);
-			}
+            if(!angular.isFunction(query)) {
+                query = angular.bind(this,compare,query);
+            }
 
-			var list = [];
-			angular.forEach(arry,function(item,idx) {
-				if(query(item)) {
-					list.push(item);
-				}
-			});
-			return list;
-		}
+            var list = [];
+            var isarry = angular.isArray(arry);
+            angular.forEach(arry,function(item,idx) {
+                if(query(item)) {
+                    if(isarry) {
+                        list.push(item);
+                    } else {
+                        list[idx] = item;
+                    }
+                }
+            });
+            return list;
+        }
 
 		/**
 		 * @ngdoc method
