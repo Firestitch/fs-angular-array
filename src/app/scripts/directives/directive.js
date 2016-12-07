@@ -54,11 +54,11 @@
 
 			var idx = indexOf(arry,query);
 
-			if(idx!==null) {
+			if(idx>=0) {
 				return arry.splice(idx,1);
 			}
 
-			return null;
+			return idx;
 		}
 
 		/**
@@ -82,7 +82,7 @@
 				}
 			}
 
-			return null;
+			return -1;
 		}
 
 		function compare(query,item) {
