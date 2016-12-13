@@ -18,7 +18,8 @@
 			sort: sort,
 			rsort: rsort,
 			list: list,
-			applyDepth: applyDepth
+			applyDepth: applyDepth,
+			inArray: inArray
 		};
 
 		return service;
@@ -249,6 +250,31 @@
 
 			return keyed;
 		}
+
+		/**
+		 * @ngdoc method
+		 * @methodOf fs.fsArray
+		 * @name fs.inArray
+		 * @description Checks if value(s) are in an array
+		 * @param {array|string|number} values Needle
+		 * @param {array} arry Haystack
+		 * @returns {boolean} boolean
+		 */
+		function inArray(values, arry) {
+
+			if(!angular.isArray(values)) {
+				values = [values];
+			}
+
+			for(var i=0, len=values.length; i<len; i++) {
+				if(arry.indexOf(values[i])>=0) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 
 	});
 })();

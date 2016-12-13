@@ -26,5 +26,7 @@
     arr[1].parent_id = 1;
 	$scope.applyDepth = fsArray.applyDepth(arr,'parent_id', 'id');
 
+	$scope.inArray = fsArray.inArray(22,[11,22,33,44,55]);
+
 });
 
