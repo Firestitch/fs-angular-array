@@ -31,17 +31,23 @@
 		 * @methodOf fs.fsArray
 		 * @description Accepts a custom array of objects and returns a array with name/value objects ie. [{ name: 'Name', value: 'value' },{ name: 'Name2', value: 'value2' }]
 		 * @param {array} arry The array used to build the name/value array
-		 * @param {string} name The name of the object's property used for name
-		 * @param {string} value The name of the object's property used for value
+		 * @param {string|function} name The name of the object's property used for name or custom function
+		 * @param {string|function} value The name of the object's property used for value or custom function
 		 * @returns {array} list
 		 */
 		function nameValue(arry, name, value) {
+
+			var nameFn = angular.isFunction(name) ? name : function(item) { return item[name] };
+			var valueFn = angular.isFunction(value) ? value : function(item) { return item[value] };
+
 			var list = [];
 			angular.forEach(arry,function(item) {
-				list.push({ name: item[name], value: item[value] });
+				list.push({ name: nameFn(item), value: valueFn(item) });
 			});
+
 			return list;
 		}
+
 
 		/**
 		 * @ngdoc method
