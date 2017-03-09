@@ -116,8 +116,8 @@
                 query = angular.bind(this,compare,query);
             }
 
-            var list = [];
             var isarry = angular.isArray(arry);
+            var list = isarry ? [] : {};
             angular.forEach(arry,function(item,idx) {
                 if(query(item)) {
                     if(isarry) {
