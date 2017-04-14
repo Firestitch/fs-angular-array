@@ -8,6 +8,8 @@
 
     $scope.nameValue = fsArray.nameValue($scope.array,'id','name');
 
+    $scope.nameValueKeyValue = fsArray.nameValue({ 'first': 'First', 'second': 'Second', 'third': 'Third' });
+
     $scope.indexOf = fsArray.indexOf($scope.array,{ name: 'Tom' });
 
     $scope.filter = fsArray.filter($scope.array,{ name: 'Will' });

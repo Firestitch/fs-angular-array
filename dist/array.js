@@ -37,13 +37,21 @@
 		 */
 		function nameValue(arry, name, value) {
 
-			var nameFn = angular.isFunction(name) ? name : function(item) { return item[name] };
-			var valueFn = angular.isFunction(value) ? value : function(item) { return item[value] };
-
 			var list = [];
-			angular.forEach(arry,function(item) {
-				list.push({ name: nameFn(item), value: valueFn(item) });
-			});
+			if(name || value) {
+
+				var nameFn = angular.isFunction(name) ? name : function(item) { return item[name] };
+				var valueFn = angular.isFunction(value) ? value : function(item) { return item[value] };
+
+				angular.forEach(arry,function(item) {
+					list.push({ name: nameFn(item), value: valueFn(item) });
+				});
+
+			} else {
+				angular.forEach(arry,function(name,value) {
+					list.push({ name: name, value: value });
+				});
+			}
 
 			return list;
 		}
