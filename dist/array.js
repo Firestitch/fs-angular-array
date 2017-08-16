@@ -1,3 +1,21 @@
+(function () {
+    'use strict';
+
+	angular.module('fs-angular-array',[])
+  	.filter('fsArrayKeyExists',function(fsArray) {
+  		return function(value1,value2) {
+	    	return fsArray.keyExists(value1,value2);
+	    }
+  	})
+  	.filter('fsArraykSort',function(fsArray) {
+  		return function(value) {
+	    	return fsArray.ksort(value);
+	    }
+  	});
+
+})();
+
+
 
 (function () {
 	'use strict';
@@ -7,7 +25,7 @@
 	 * @name fs.fsArray
 	 */
 
-	angular.module('fs-angular-array',[])
+	angular.module('fs-angular-array')
 	.factory('fsArray', function ($filter) {
 		var service = {
 			nameValue: nameValue,
@@ -18,6 +36,8 @@
 			sort: sort,
 			rsort: rsort,
 			list: list,
+			ksort: ksort,
+			keyExists: keyExists,
 			applyDepth: applyDepth,
 			inArray: inArray
 		};
@@ -289,7 +309,18 @@
 			return false;
 		}
 
+		function keyExists(array,key) {
+			return key in array;
+		}
+
+		function ksort(array) {
+			Object.keys(array).sort().forEach(function(key) {
+		        var value = array[key];
+		        delete array[key];
+		        array[key] = value;
+		    });
+		    return array;
+		}
 
 	});
 })();
-
