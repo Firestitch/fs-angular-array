@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-	angular.module('fs-angular-array',[])
+	angular.module('fs-angular-array',['fs-angular-util'])
   	.filter('fsArrayKeyExists',function(fsArray) {
   		return function(value1,value2) {
 	    	return fsArray.keyExists(value1,value2);
@@ -10,6 +10,11 @@
   	.filter('fsArraykSort',function(fsArray) {
   		return function(value) {
 	    	return fsArray.ksort(value);
+	    }
+  	})
+ 	.filter('fsArrayLength',function(fsArray) {
+  		return function(value,filters) {
+	    	return fsArray.filter(value,filters).length;
 	    }
   	});
 
@@ -26,7 +31,7 @@
 	 */
 
 	angular.module('fs-angular-array')
-	.factory('fsArray', function ($filter) {
+	.factory('fsArray', function (fsUtil) {
 		var service = {
 			nameValue: nameValue,
 			remove: remove,
@@ -39,7 +44,8 @@
 			ksort: ksort,
 			keyExists: keyExists,
 			applyDepth: applyDepth,
-			inArray: inArray
+			inArray: inArray,
+			length: length
 		};
 
 		return service;
@@ -313,13 +319,16 @@
 			return key in array;
 		}
 
-		function ksort(array) {
-			Object.keys(array).sort().forEach(function(key) {
-		        var value = array[key];
-		        delete array[key];
-		        array[key] = value;
+		function length(array) {
+			return fsUtil.length(array);
+		}
+
+		function ksort(unordered) {
+			Object.keys(unordered).sort().forEach(function(key) {
+		        var value = unordered[key];
+		        delete unordered[key];
+		        unordered[key] = value;
 		    });
-		    return array;
 		}
 
 	});

@@ -7,7 +7,7 @@
 	 */
 
 	angular.module('fs-angular-array')
-	.factory('fsArray', function ($filter) {
+	.factory('fsArray', function (fsUtil) {
 		var service = {
 			nameValue: nameValue,
 			remove: remove,
@@ -20,7 +20,8 @@
 			ksort: ksort,
 			keyExists: keyExists,
 			applyDepth: applyDepth,
-			inArray: inArray
+			inArray: inArray,
+			length: length
 		};
 
 		return service;
@@ -292,6 +293,10 @@
 
 		function keyExists(array,key) {
 			return key in array;
+		}
+
+		function length(array) {
+			return fsUtil.length(array);
 		}
 
 		function ksort(unordered) {
