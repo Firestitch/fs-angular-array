@@ -7,6 +7,16 @@
 	    	return fsArray.keyExists(value1,value2);
 	    }
   	})
+  	.filter('fsArrayInArray',function(fsArray) {
+  		return function(value1,value2) {
+	    	return fsArray.inArray(value1,value2);
+	    }
+  	})
+  	.filter('fsArrayNotInArray',function(fsArray) {
+  		return function(value1,value2) {
+	    	return !fsArray.inArray(value1,value2);
+	    }
+  	})
   	.filter('fsArraykSort',function(fsArray) {
   		return function(value) {
 	    	return fsArray.ksort(value);

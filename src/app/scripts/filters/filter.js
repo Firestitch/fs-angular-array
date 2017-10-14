@@ -12,6 +12,16 @@
 	    	return fsArray.ksort(value);
 	    }
   	})
+  	.filter('fsArrayInArray',function(fsArray) {
+  		return function(value1,value2) {
+	    	return fsArray.inArray(value1,value2);
+	    }
+  	})
+  	.filter('fsArrayNotInArray',function(fsArray) {
+  		return function(value1,value2) {
+	    	return !fsArray.inArray(value1,value2);
+	    }
+  	})
  	.filter('fsArrayLength',function(fsArray) {
   		return function(value,filters) {
 	    	return fsArray.filter(value,filters).length;
